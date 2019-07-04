@@ -18,8 +18,11 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-
-        <link href="css/main.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body
@@ -42,12 +45,12 @@
                     <li><a href="./pic_guide.html">图片分享</a></li>
                     <!--下拉菜单-->
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                留言板<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="./board_list.php">查看</a></li>
-                                <li><a href="./board.html">发送</a></li>
-                            </ul>
-                        </li>
+                            留言板<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="./board_list.php">查看</a></li>
+                            <li><a href="./board.html">发送</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -128,13 +131,13 @@
         </div>
 
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:100px;">
-    <p> </p>
-</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:100px;">
+            <p> </p>
+        </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="_list">
             <?php foreach($data as $v) {?>
-            <p>  </p>
+            <p> </p>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -149,15 +152,61 @@
             <?php }?>
         </div>
 
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="_append">
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            </div>
+
+        </div>
 
 
-    </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="_add">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-md-offset-3 well">
 
 
-    <!-- jQuery -->
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                <legend>电波标题</legend>
+
+                <div class="form-group">
+                    <label for="">说点什么</label>
+                    <input type="text" class="form-control" id="_title" name="_title" placeholder="title">
+                    <hr>
+                    <input type="text" class="form-control" rows="3" id="_text" name="_text" placeholder="content">
+                </div>
+                <button id="_add_btn" class="btn btn-primary">Submit</button>
+                <script>
+                    $(function () {
+                        $('#_add_btn').on('click', function () {
+                            var _title = $('#_title').val();
+                            var _text = $('#_text').val();
+                            $.ajax({
+                                type: 'POST',
+                                url: "ajax_board.php",
+                                data: {
+                                    _title: _title,
+                                    _text: _text
+                                },
+                                datatype:"json",
+                                success: function () {
+                                    window.location.reload();
+                                // success: function (data) {
+                                //         var str = "<p><strong>" + data._title +
+                                //             "</strong> 发表了：" + data._text + "</p>";
+                                //         $("#_append").append(str);
+                                //     alert(data["_title"]);
+                                //wdnmd,ajax杀我
+                                }
+                            });
+                        })
+                    })
+                </script>
+            </div>
+
+
+        </div>
+
+
+
 </body>
 
 </html>
